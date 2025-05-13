@@ -42,15 +42,14 @@ def calculate_confidence_intervals_asymptotic(sample, alpha=0.05):
 
 
 def compute_twin(m_lower, m_upper, sigma_lower, sigma_upper):
-    # x_outer: гарантированно содержит μ ± σ при максимальном σ (самый широкий возможный интервал)
+    # Используем верхнюю границу сигмы для более широкого интервала
+    x_inner_lower = m_lower + sigma_lower
+    x_inner_upper = m_upper - sigma_lower
+
+    # Внешний твин (пессимистичный случай)
+    # Используем нижнюю границу сигмы для более узкого интервала
     x_outer_lower = m_lower - sigma_upper
     x_outer_upper = m_upper + sigma_upper
-    # x_inner: гарантированно содержится в μ ± σ при минимальном σ (самый узкий возможный интервал)
-    x_inner_lower = m_lower - sigma_lower
-    x_inner_upper = m_upper + sigma_lower
-    # Объединяем интервалы для получения общего твина
-    x_inner = (x_inner_lower, x_inner_upper)
-    x_outer = (x_outer_lower, x_outer_upper)
 
-    return x_inner, x_outer
+    return (x_inner_lower, x_inner_upper), (x_outer_lower, x_outer_upper)
 
