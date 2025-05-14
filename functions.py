@@ -1,6 +1,7 @@
 from scipy.stats import t, chi2, norm
 import numpy as np
 
+
 def calculate_confidence_intervals_normal(sample, alpha=0.05):
     n = len(sample)
     x_bar = np.mean(sample)
@@ -42,12 +43,11 @@ def calculate_confidence_intervals_asymptotic(sample, alpha=0.05):
 
 
 def compute_twin(m_lower, m_upper, sigma_lower, sigma_upper):
-    # Используем верхнюю границу сигмы для более широкого интервала
+    # Используем нижнюю границу сигмы для более узкого интервала
     x_inner_lower = m_lower + sigma_lower
     x_inner_upper = m_upper - sigma_lower
 
-    # Внешний твин (пессимистичный случай)
-    # Используем нижнюю границу сигмы для более узкого интервала
+    # Используем верхнюю границу сигмы для более широкого интервала
     x_outer_lower = m_lower - sigma_upper
     x_outer_upper = m_upper + sigma_upper
 
